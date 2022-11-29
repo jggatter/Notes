@@ -1,5 +1,6 @@
-# PostgreSQL Notes  
-  
+#sql #postgres
+
+Source:  
 [Learn PostgreSQL Tutorial - Full Course for Beginners](https://www.youtube.com/watch?v=qw--VYLpxG4)  
   
 ## Intro  
