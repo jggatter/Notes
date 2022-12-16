@@ -1,4 +1,17 @@
-#postgres #databases #sql
+#postgres #databases #sql #docker
+
+## Docker image:
+```zsh
+docker pull postgres
+
+# If you want to use port 5432 like in the example below
+sudo systemctl stop postgresql
+
+docker run --rm --name postgres -dit --p 5432:5432 -e POSTGRES_PASSWORD=password postgres
+```
+Additionally `--restart always` could be useful here
+
+To connect: `psql -h localhost -U postgres`
 
 ## on Fedora:
 https://docs.fedoraproject.org/en-US/quick-docs/postgresql/
@@ -69,3 +82,4 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
+```
