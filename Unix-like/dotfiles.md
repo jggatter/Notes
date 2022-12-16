@@ -1,4 +1,4 @@
-#dotfiles
+#linux #dotfiles
 
 ## Storing dotfiles in a repo
 [Guide](https://www.ackama.com/what-we-think/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained/) and my notes: [[git work trees and bare]]
@@ -21,7 +21,7 @@ git-dotfiles commit -m "Initial commit with rc files"
 
 # Create new repository on github
 git-dotfiles remote add origin https://github.com/jggatter/dotfiles.git
-git branch -M main
+git-dotfiles branch -M main
 git-dotfiles push -u origin main
 ```
 
