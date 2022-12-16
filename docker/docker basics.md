@@ -12,6 +12,29 @@
 
 **Docker Hub** - _A registry of Docker images. You can think of the registry as a directory of all available Docker images. If required, one can host their own Docker registries and can use them for pulling images._
 
+## Start docker daemon
+
+Necessary before running any docker commands
+`sudo systemctl start docker`
+
+## Run `docker` CLI without `sudo`
+[Article](https://www.baeldung.com/linux/docker-run-without-sudo)
+
+"The Docker daemon binds to a Unix socket, and the _root_ user owns this Unix socket. Other users need to prefix their _docker_ commands with _sudo_ to access the Docker daemon.
+
+By adding our Linux username to the Unix group _docker_, we can bypass this. When the Docker daemon starts, it creates a Unix socket accessible by the members of the _docker_ group.
+
+Running Docker commands with the _sudo_ command is a sound security restriction. **However, users added to the Unix group _docker_ can run Docker commands as _root_ users while maintaining their usernames**."
+
+```sh
+# Create Unix group "docker"
+sudo groupadd docker
+# Add user jgatter to docker group
+sudo usermod -aG docker jgatter
+# Log back in
+su - jgatter
+```
+`
 ## Images: pulling, tagging/building, and pushing
 
 List images on local system
@@ -20,7 +43,6 @@ List images on local system
 Build from a Dockerfile in the present working directory and tag it
 `docker build -t repository/image:version .`
 Can also do as separate steps using `docker build` and `docker tag`
-
 
 Remove images
 `docker rmi <image ID>`
@@ -44,7 +66,7 @@ Simplest example: Launch a container with the specified tagged image
 `man docker run`
 
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
-Note COMMAND, e.g.
+Note COMMAND, e.g. `/bin/bash`
 `docker run --rm -it repository/image:version /bin/sh`
 
 ##### Main flags:
@@ -54,7 +76,7 @@ Note COMMAND, e.g.
 
 ##### Useful flags:
 * *`--name` : Give the container a name for easy identification/referencing.
-* `-p <local-host-IP>:<local-host-port>:<docker-container-port>` : Map the container port to a local host's IP and port.
+* `-p <local-host-IP>:<local-host-port>:<docker-container-port>` : Map the container port to a local host's IP and port. Can also do just ports, e.g. `-p 5432:5432`
 * `--entrypoint <command>` : Override the `ENTRYPOINT` command of the Dockerfile, e.g. `/bin/sh` will start the container's shell.
 * `--mount <???:???:???>` : TODO
 * `--volume` : TODO
@@ -75,6 +97,7 @@ Attach to container
 
 Execute a command within a running container
 `docker exec <container ID>`
+Can use `-it` flags like the `run` command
 
 Stop the container (does not delete unless was run with `--rm`)
 `docker stop <container ID>`
