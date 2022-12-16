@@ -1,3 +1,5 @@
+#react
+
 # Handling Events
 Handling events with React elements is very similar to handling events on DOM elements. There are some syntax differences:
 

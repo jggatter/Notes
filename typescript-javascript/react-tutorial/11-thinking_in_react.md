@@ -1,3 +1,5 @@
+#react
+
 # [Thinking in React](https://reactjs.org/docs/thinking-in-react.html)
 React is, in our opinion, the premier way to build big, fast Web apps with JavaScript. It has scaled very well for us at Facebook and Instagram.
 

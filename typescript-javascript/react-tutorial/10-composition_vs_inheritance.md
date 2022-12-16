@@ -1,3 +1,5 @@
+#react
+
 # Composition vs. Inheritance
 React has a powerful _composition_ model, and we recommend using **composition instead of inheritance to reuse code between components.**
 

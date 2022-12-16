@@ -1,3 +1,5 @@
+#react
+
 # State and Lifecycle
 This page introduces the concept of state and lifecycle in a React component. You can find a detailed component API reference here.
 
