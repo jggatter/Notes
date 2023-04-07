@@ -37,7 +37,6 @@ File tree explained:
 	- Contains configurations of Lua plugins.
 	- Each is the configuration for a concrete plugin, additionally we have `other.lua` for everything else
 
-
 Install plug.vim as package installer
 ```bash
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
