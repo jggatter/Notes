@@ -1,4 +1,4 @@
-#docker #image #container
+ #docker #image #container
 
 ## Terminology
 
@@ -121,5 +121,10 @@ e.g.
 `docker container prune`
 
 Delete everything!
-`docker system prune`
+```
+docker system prune --volumes --all
+
+# Not cache layers
+docker system prune
+```
 
