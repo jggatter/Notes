@@ -1,5 +1,20 @@
 #python #troubleshooting #dependencyhell
 
+## Find what packages take up the most space
+
+```sh
+pip list \
+	| tail -n +3 \
+	| awk '{print $1}' \
+	| xargs pip show \
+	| grep -E 'Location:|Name:' \
+	| cut -d ' ' -f 2 \
+	| paste -d ' ' - - \
+	| awk '{print $2 "/" tolower($1)}' \
+	| xargs du -sh 2> /dev/null \
+	| sort -hr
+```
+
 ## No file `Python.h`
 
 On Fedora ran into this when trying to install h5py and pyarrow, etc. Need to install `python3-devel` files. Specifically for my separate 3.11 installation I needed to do:
