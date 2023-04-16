@@ -13,6 +13,12 @@ gh auth login
 gh repo clone <author/reponame>
 ```
 
+git remote -v
+git remote set-url origin git@github.com:jgatter/Notes.git
+
+Please make sure you have the correct access rights
+and the repository exists.
+
 ## Git basics
 ```sh
 # Switch to an existing branch to which you wish to push changes
