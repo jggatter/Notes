@@ -1,4 +1,4 @@
-#docker #image #container
+ #docker #image #container
 
 ## Terminology
 
@@ -44,6 +44,9 @@ Build from a Dockerfile in the present working directory and tag it
 `docker build -t repository/image:version .`
 Can also do as separate steps using `docker build` and `docker tag`
 
+Tag a built image with another tag:
+`docker tag <existing image tag> <new image tag>`
+
 Remove images
 `docker rmi <image ID>`
 
@@ -52,6 +55,20 @@ Push a tagged image to a repository
 
 Pull a hosted image from the docker registry to the local system
 `docker pull repository/image:version`
+
+### AWS Elastic Container Registry
+
+If the images are/will be hosted on AWS ECR, there are some additional steps to take:
+
+1) Logging in: 
+```bash
+aws ecr get-login-password --profile <AWSPROFILE> \
+	| docker login \
+		--username AWS \
+		--password-stdin \
+		$ECR_REGISTRY
+```
+2) When pushing, create the ECR repository if it does not yet exist! Otherwise you will be stuck "retrying".
 
 ## Containers: running and interacting
 
@@ -121,5 +138,10 @@ e.g.
 `docker container prune`
 
 Delete everything!
-`docker system prune`
+```
+docker system prune --volumes --all
+
+# Not cache layers
+docker system prune
+```
 
