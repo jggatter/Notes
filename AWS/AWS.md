@@ -67,30 +67,3 @@ Billing preferences:
 AWS Budget service
 Create a budget (custom template)
 Monthly $10 USD with alerts for 50% and 100% spending
-
-## IAM Basics
-
-Identity and Access Management is a service running on all accounts.
-IAM is a globally resilient service, any data is always secure across all AWS regions. 
-The IAM running on an account is its own instance, separate from other accounts. 
-There is full trust between your account and its IAM: like the root user, IAM can do anything in the account (with some restrictions around billing/account closure).
-Inside IAM we can create different identities across different types of identities with explicitly granted permissions
-
-### 3 different types of identity objects:
-1. Users: humans or applications that need access to your account
-2. Groups: collections of related users
-3. Roles: Can be used by AWS services, or for granting external access to your account. For use by an uncertain number of entities (e.g. all EC2 instances). Allow services to act on your behalf.
-
-### Policies
-Policy documents are created through IAM. They allow or deny access to AWS services only when attached to IAM users, groups, or roles. On their own they do nothing.
-
-### IAM has 3 main jobs
-* **Manages identities** as an Identity Provider (IDP) - create, modify, and delete identities such as users and roles
-* **Authenticates** those identities. When anyone attempts to make a request, they are known as a security principle that needs to prove their identity. IAM authenticates when given username/password or through other methods of authentication
-* **Authorizes** those identities (or not) to access resources based on the policies associated with the identity
-
-### Recap
-* IAM is free but there are limits. It's a global service and is globally resilient (can cope with failure of large sections of AWS infra).
-* Allows or denies its identities on its AWS account
-* Does not allow direct control on external accounts or users.
-* Identity federation (lets you take identities you already have e.g. business active directory) and MFA
