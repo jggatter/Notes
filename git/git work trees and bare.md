@@ -25,3 +25,31 @@ Non-bare respositories are the default initialized by `git init`. They are initi
 
 A bare repository is initalized by `git init --bare <path/to/reponame>` . They do not contain a work tree and the git files are located in the project root directory.
 
+## Clones
+https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/#
+
+"There are three ways to reduce clone sizes for repositories hosted by GitHub.
+- `git clone --filter=blob:none <url>` creates a _blobless clone_. These clones download all reachable commits and trees while fetching blobs on-demand. These clones are best for developers and build environments that span multiple builds.
+- `git clone --filter=tree:0 <url>` creates a _treeless clone_. These clones download all reachable commits while fetching trees and blobs on-demand. These clones are best for build environments where the repository will be deleted after a single build, but you still need access to commit history.
+- `git clone --depth=1 <url>` creates a _shallow clone_. These clones truncate the commit history to reduce the clone size. This creates some unexpected behavior issues, limiting which Git commands are possible. These clones also put undue stress on later fetches, so they are strongly discouraged for developer use. They are helpful for some build environments where the repository will be deleted after a single build."
+
+This will get only the latest commit and no files (but still .git for all files which can be massive!):
+```
+git clone --depth=1 --no-checkout <url>
+```
+Pulling newer commits will increase the depth. To fetch older commits, `git fetch depth=N` where `N` is the depth of commits to fetch.
+
+A sparse checkout is better:
+```bash
+git clone --filter=blob:none --sparse <url>
+cd <repository>
+git sparse-checkout set <path>
+```
+List currently set paths:
+```bash
+git sparse-checkout list
+```
+List all paths not currently set:
+```bash
+git ls-tree -r HEAD --name-only | grep -vxF -f <(git sparse-checkout list)
+```

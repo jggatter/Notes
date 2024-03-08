@@ -1,4 +1,4 @@
-
+#git
 ```sh
 # To turn any extended object reference into a hash:
 git rev-parse HEAD
@@ -77,5 +77,44 @@ git clean: Removes untracked files from your working directory. This can be help
 -   `-x`: Remove both ignored and non-ignored files.
 -   `-X`: Remove only ignored files.
 
-git tag
-git push --tags
+## Tags
+
+```bash
+git tag <version tag>
+# Pushes the tag to the branch with <
+git push origin <version tag>
+
+git push --tags  # Pushes commits with local tags
+
+# Shows local tags
+git show-ref --tags
+
+# Shows all tags
+git tag -l
+```
+
+## Rebasing a Merge Queue
+
+I have merge queue branch that I use to consolidate merged Dependabot pull requests.
+
+Perhaps not the best practice, but I routinely rebase the merge queue branch to reset its history.
+
+This rebases onto master, erasing commit history.
+```sh
+# Pull latest version of master
+git checkout master
+git pull
+
+# Begin the rebase
+git checkout merge-queue
+git rebase master
+```
+I then resolve any conflicts and continue:
+```sh
+git add <conflicting files>
+git rebase --continue
+```
+When the rebase succeeds, we force-push to the remote merge-queue.
+```sh
+git push -u origin merge-queue --force-with-lease
+```
