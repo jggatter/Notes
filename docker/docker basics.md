@@ -74,7 +74,7 @@ aws ecr get-login-password --profile <AWSPROFILE> \
 
 ### Running
 
-When attached to running container, \^C will terminate while \^P\^Q detaches
+When attached to running container, \^C will terminate while (holding both at the same time) \^P\^Q detaches. Reattach using `docker attach`.
 
 Simplest example: Launch a container with the specified tagged image
 `docker run --rm -it repository/image:version`
@@ -137,7 +137,7 @@ Most docker subcommands have a `prune` command
 e.g.
 `docker container prune`
 
-Delete everything!
+Delete everything! Even images you may want to keep!
 ```
 docker system prune --volumes --all
 
