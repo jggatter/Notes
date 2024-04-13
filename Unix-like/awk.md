@@ -268,3 +268,10 @@ awk '+$1 { gsub(/ +/, "-", $2); print }' FS=, file
 ```
 
 `gsub` accepts a regular expression for pattern matching, a replacement string. and the variable containing the text to be modified in-place. If no variable is given, it will assume the entire record `$0`.
+
+## Transforming a CSV
+
+Transform the first two columns of a csv:
+```bash
+awk -F, 'NR==1{split($0,a);next} NR==2{split($0,b);next} {for(i=1;i<=NF;i++) print a[i]"\t"b[i]}' Model.csv
+```
