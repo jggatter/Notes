@@ -275,6 +275,8 @@ We can shut down active services using `stop`, which preserves containers, volum
 
 We can reset the status of the project using `down`, which destroys everything except for external volumes:
 `docker-compose down`
+Running the following instead will also destroy the external volumes that were created:
+`docker-compose down -v`
 
 ### Other useful CLI commands
 
