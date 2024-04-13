@@ -33,12 +33,16 @@ cd hello
 ```
 
 Enable dependency tracking for your code via the `go.mod` file. Imported modules that provide packages are managed by this file which stays with your code in your source code repository. Use `go mod init <module name>` where the module name will be the module's path:
-`go mod init example/hello`
+```
+go mod init example.com/hello`
+```
+
+The above step is optional, a Go script can be executed via `go run` without it.
 
 Create a `hello.go` file. This file contains external code from a module `rsc.io/quote` found on `pkg.go.dev`:
 
 ```go
-package main
+package main  // This must be `main` to be directly run by `go run`
 
 import "fmt"
 import "rsc.io/quote"
@@ -52,7 +56,11 @@ Add the `quote` module requirement and a `go.sum` file for use in authenticating
 `go mod tidy`
 
 Run this file:
-`go run .`
+```bash
+go run .
+
+go run hello.go
+```
 
 ## Create a Module
 

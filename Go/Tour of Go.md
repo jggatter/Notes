@@ -201,7 +201,7 @@ if x < 0 {
 
 Like the for-loop, we can use a short statement `:=`.
 ```go
-if v:= math.Pow(x, n); v < lim {
+if v := math.Pow(x, n); v < lim {
 	return v
 }
 ```
