@@ -566,7 +566,31 @@ A cascade added upon table creation would ignore foreign key and would allow rem
     LEFT JOIN car ON car.id = person.car_id  
 ) TO '/path/to/save/results.csv' DELIMITER ',' CSV HEADER;
 ```
-  
+
+## `COPY` from CSV
+
+```postgresql
+CREATE TABLE persons (   id SERIAL,   first_name VARCHAR(50),   last_name VARCHAR(50),   dob DATE,   email VARCHAR(255),   PRIMARY KEY (id) )
+```
+
+The name and order of the columns must be the same as the ones in the CSV file. In case the CSV file contains all columns of the table, you don’t need to specify them explicitly, for example:
+```postgresql
+COPY persons(first_name, last_name, dob, email)
+FROM 'C:\sampledb\persons.csv'
+DELIMITER ','
+CSV HEADER;`
+```
+
+Another example that uses `WITH (FORMAT csv)`:
+```postgresql
+CREATE TABLE zip_codes
+(ZIP char(5), LATITUDE double precision, LONGITUDE double precision,
+CITY varchar, STATE char(2), COUNTY varchar, ZIP_CLASS varchar);
+
+COPY zip_codes
+FROM '/path/to/csv/ZIP_CODES.txt'
+WITH (FORMAT csv);
+```
 ## Serials and Sequences  
   
 In `\d` you can see that sequences reference an `<attribute>_seq` object.  
@@ -616,4 +640,55 @@ UPDATE person SET car_uid = '<car UUID>' WHERE person_uid = '<person UUID>'
 ```sql
 SELECT * FROM person JOIN car ON person.car_uid = car.car_uid;
 SELECT * FROM person JOIN car USING car_uid; -- Equivalent, easier when have the same name!  
+```
+
+## `BEGIN`, `COMMIT`, and `ROLLBACK`
+
+These three commands allows multiple commands to be run as a single, atomic series of transactions that can be committed upon success or reverted upon failure (handled conditionally or most unhandled errors).
+
+`BEGIN` opens the transaction block while `COMMIT` ends it with having the DBMS apply the changes if successful. `ROLLBACK` can revert all changes made within the transaction block.
+```postgresql
+BEGIN;
+
+-- Some SQL commands 
+-- ...
+
+COMMIT; -- Make all changes permanent
+```
+
+More complex example where `ROLLBACK` is used conditionally.
+```postgresql
+DO $$
+BEGIN
+    -- Start the transaction
+    BEGIN;
+
+    -- Assume we are transferring $100 from user with id=1 to user with id=2
+    DECLARE
+        user1_balance NUMERIC;
+        transfer_amount NUMERIC := 100;
+    BEGIN
+        -- Check the balance of user 1
+        SELECT balance INTO user1_balance FROM users WHERE id = 1;
+
+        -- Check if user 1 has enough balance
+        IF user1_balance < transfer_amount THEN
+            RAISE EXCEPTION 'Insufficient balance';
+        END IF;
+
+        -- Deduct the amount from user 1
+        UPDATE users SET balance = balance - transfer_amount WHERE id = 1;
+        -- Add the amount to user 2
+        UPDATE users SET balance = balance + transfer_amount WHERE id = 2;
+
+        -- Commit the transaction
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+            -- If any error occurs, roll back the transaction
+            ROLLBACK;
+            RAISE;
+    END;
+END;
+$$;
 ```
