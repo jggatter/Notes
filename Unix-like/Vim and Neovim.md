@@ -42,3 +42,49 @@ Install plug.vim as package installer
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
+## Keys
+
+### Basics
+### Advanced
+
+#### Jumping around
+
+Normal mode
+`42G`: Go to line 42 in the file
+`gd`: Go to definition of a variable, class, function, etc.
+`^o`: Jump to previous cursor position in jump list
+`^i`: Jump back to next cursor position in jump list
+
+`f(`: Go to first `(` character within the line
+`%`: Go between next pair of opening/closing braces within the line
+
+#### Multi-line insert
+1. First, go to the first line you want to comment, press `^V`. This will put the editor in the `VISUAL BLOCK` mode.
+2. Then using the arrow key and select until the last line
+3. Now press `I`, which will put the editor in `INSERT` mode and then type the character(s) to insert, e.g. `#` for a comment in Python.
+4. You may need to press ESC twice
+
+#### Macros:
+
+1. Go to desired cursor position
+2. `qq` to start recording a macro into register `q`
+3. Perform a series of actions in NORMAL, INSERT, etc. modes
+4. `q` to stop recording the macro
+
+- Use `@q` to play back the macro once. Afterwards, `@@` will repeat the macro.
+- `20@@` would repeat the last macro played 20 times
+
+A multi-line insert that would act at the end of a block of lines of varying lengths is possible using a macro:
+```vim
+qq
+$
+i
+<INSERT CHARACTERS>
+<ESC>
+j
+q
+
+@q
+20@@
+```
