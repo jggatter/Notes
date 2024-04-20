@@ -2,72 +2,204 @@
 
 ## Configuring
 
-Some machines are locked down and prevent installation of software like Neovim. My goal is to have a Neovim/Vim setup I can bring to whatever machine. Therefore I followed this guide:
-[Article: How to have a Neovim configuration compatible with Vim](https://threkk.medium.com/how-to-have-a-neovim-configuration-compatible-with-vim-b5a46723145e)
-
-Have Neovim or Vim installed
-
-Ensure the default path for Neovim configuration is created:
-`mkdir -p $HOME/config/nvim`
-Sidenotes: 
-* You can read up on runtime paths: `:help rtp`
-* For Neovim, much of this info is based on the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-
-When using Vim instead of Neovim, create two [[Symbolic links]]:
-```sh
-ln -s $HOME/.config/nvim $HOME/.vim \
-&& ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
-```
-
-File tree explained:
-- `init.vim` is the entry point of the configuration. 
-	- It loads plugins using `vim-plug`, which works for both Vim and Neovim. 
-	- It also defines where plugins should be located and which plugins to load for Neovim vs. Vim.
-- `common.vim` contains common configuration files like bindings, tabs, word wrappings, etc.
-	- These are classical Vim configurations and are the same for both Vim and Neovim
-	- Rule of thumb: anything valid for both and not a plugin goes here! If inconsistentices between platforms, prioritize Neovim
-- `plugins.vim` is the complementary of `common.vim`.
-	- Every configuration used in both versions goes here for instance
-	- e.g. NERDTree, easymotion, lightline.vim
-- `only_vim.vim` contains only Vim configurations.
-	- Loaded after so will overwrite Neovim configurations
-- `languages/` contains custom language configurations used by both versions.
-	- One file per language and an additional file `other.vim` for "the kitchen sink"
-- `lua/` is the required location for all Lua code to be used by Neovim
-	- Contains configurations of Lua plugins.
-	- Each is the configuration for a concrete plugin, additionally we have `other.lua` for everything else
-
-Install plug.vim as package installer
-```bash
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
+I have my configuration installable through my dotfiles repository.
 
 ## Motions
 
+This [cheatsheet](https://vim.rtorr.com/) is also pretty nice and I took some info from here.
+
 ### Basics
 
-#### Navigating up and down
+#### Insert
 
-`^f`: page down
-`^b`: page up
-`^d`: half page down
-`^u` half page up
+Normal mode:
+`i`: Insert at cursor position
+`I`: Insert at beginning of line
+`a`: Insert after cursor position
+`A`: Insert after end of line
+`o`: Insert below line
+`O`: Insert above line
+
+#### Navigate
+
+Normal or visual mode:
+`h`: Move left
+`j`: Move down
+`k`: Move up
+`l`: Move right
+
+`w`: Move forward a word
+`W`: Move forward a word that may contain punctuation
+`b`: Move backwards a word
+`B`: Move backwards a word that may contain punctuation
+`e`: Move to the end of a word
+`E`: Move to the end of a word that may contain punctuation
+`ge`: Jump to the end of the previous word
+`gE`: Jump to the end of the previous word that may contain punctuation
+
+`{`: Move to next paragraph or block
+`}` Move to previous paragraph or block
+
+#### Delete or change
+
+Normal mode:
+`x`: Delete the current character
+
+`dd`: Delete line
+`dw`: Delete word
+`daw`: Delete around word
+`dap`: Delete around paragraph
+`di"`: Delete inside `"sometext"`
+
+`cc`: Change line
+`cw`: Change word
+`caw`: Change around word
+`cap`: Change around paragraph
+`ci"`: Change inside `"sometext"`
+`ct<`: Change up until the next `<` character
+`c$` or `C`: Change until end of line
+
+`r`: Replace a character
+`R` Replace multiple characters until escape
+
+Visual mode:
+`d`: Delete
+`c`: Change
+
+#### Copy-paste
+
+Normal mode:
+`yy`: Yank line
+`yw`: Yank word
+`yaw`: Yank around word
+`yap`: Yank around paragraph
+`yi"`: Yank inside surrounding quotations
+`yt<`: Yank up until the next `<` character
+
+`p`: Paste
+`P`: Paste above
+
+Visual mode:
+`y`: Copy
+`p`: Paste over
+
+See Advanced for specifics about the register and system clipboards.
+
+#### Undo and redo
+
+Normal mode
+`u`: Undo
+`^r`: Redo
 
 ### Advanced
+
+#### Misc
+
+`.`: Repeat last command
+
+#### Registers and the system clipboard
+
+Special registers are stored in `~/.viminfo`.
+`0`: last yank
+`"`: last delete or yank (default)
+`%`: current filename
+`#` alternate filename
+`*`: clipboard contents (X11 primary)
+`+`: clipboard contents (X11 clipboard)
+`/`: last search pattern
+`:`: last command-line
+`.` last inserted text
+`-`: last small (less than one line) delete
+`=`: expression register
+`_`: blackhole register
+
+Here we can yank to copy, delete multiple lines, and paste the original line from the yank register.
+```vim
+yy
+4dd
+"0p
+```
+
+Alternatively we can use the black hole register to prevent overwriting of the yanked text:
+```vim
+yy
+"_4dd
+p
+```
+
+##### Linux
+
+`"+y`: Yank to system clipboard
+`"+p`: Paste from system clipboard
+
+The `"*` register might achieve the same thing? 
+
+##### WSL
+
+Visual mode:
+`:w !clip.exe`: Copy to system clipboard
+
+Normal mode:
+`:w !clip.exe`: Copy file to system clipboard
+
+#### Search
+`:set hlsearch`: Highlight matches.
+`:set ignorecase`: Make searches case-insensitive.
+`:set smartcase`: When used with `ignorecase`, makes searches for patterns that contain upper case characters case-sensitive.
+`:noh`: Cease highlighting of search results until next search.
+
+`/<pattern>` and ENTER: Forward search
+`?<pattern>` and ENTER: Reverse search
+`*`: Forward search for word under cursor
+`#`: Reverse search for word under cursor
+
+`n`: Go to next result
+`N`: Go to previous result
+
+`:s/<search pattern>/<replace pattern>/gc`: Within-file global search and replace with confirmation.
+`:vimgrep <search pattern> <filepath pattern>`: Search within files that match pattern for a search pattern.
 
 #### Jumping around
 
 Normal mode
+`0`: Jump to the beginning of a line
+`^`: Jump to the first non-blank character of a line
+`$`: Jump to the end of a line
+
+`gg`: Go to the first line of the file
+`G`: Go to last line of the file
 `42G`: Go to line 42 in the file
+`-42G`: Go the the 42nd to last line in the file
+
 `gd`: Go to definition of a variable, class, function, etc.
+`gD`: Go to global definition
+
 `^o`: Jump to previous cursor position in jump list
 `^i`: Jump back to next cursor position in jump list
 
-An alternative to `G` for jumping around the page would be to set relative line numbers on (with current line absolute) and use `<number>k` and `<number>j` to precisely move up and down. `G` is still useful for hopping around a file off the current page.
+`f(`: Go to the next `(` character within the line
+`F(`: Go to the previous occurrence of character `(` within the line
+`t(`: Go to before the first `'('` character within the line
+`T(`: Go to before the previous occurrence of character `(` within the line
+When in find mode, use `;` to go to the next occurrence and `,` to go to the previous occurrence.
 
-`f(`: Go to first `(` character within the line
 `%`: Go between next pair of opening/closing braces within the line
+
+#### Code-folding
+
+LSPs typically create folds automatically.
+
+Normal mode:
+`za`: Toggle the fold to Open/Close
+`zo`: Open
+`zc`: Close
+
+#### Change case
+
+Visual mode
+`U`: To uppercase
+`u`: To lowercase
+`~`: Toggle to opposite casing
 
 #### Multi-line insert
 1. First, go to the first line you want to comment, press `^V`. This will put the editor in the `VISUAL BLOCK` mode.
@@ -103,33 +235,4 @@ q
 @q
 # Call the last called macro 20 times
 20@@
-```
-
-#### Code-folding
-
-LSPs typically create folds automatically.
-
-Normal mode:
-`za`: Toggle the fold to Open/Close
-`zo`: Open
-`zc`: Close
-
-#### Registers
-
-`""`: Default register
-`"0"`: Yank register
-`"_`: Black hole register
-
-Here we can yank to copy, delete multiple lines, and paste the original line from the yank register.
-```vim
-yy
-4dd
-"0p
-```
-
-Alternatively we can use the black hole register to prevent overwriting of the yanked text:
-```vim
-yy
-"_4dd
-p
 ```
