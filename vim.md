@@ -43,9 +43,17 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-## Keys
+## Motions
 
 ### Basics
+
+#### Navigating up and down
+
+`^f`: page down
+`^b`: page up
+`^d`: half page down
+`^u` half page up
+
 ### Advanced
 
 #### Jumping around
@@ -55,6 +63,8 @@ Normal mode
 `gd`: Go to definition of a variable, class, function, etc.
 `^o`: Jump to previous cursor position in jump list
 `^i`: Jump back to next cursor position in jump list
+
+An alternative to `G` for jumping around the page would be to set relative line numbers on (with current line absolute) and use `<number>k` and `<number>j` to precisely move up and down. `G` is still useful for hopping around a file off the current page.
 
 `f(`: Go to first `(` character within the line
 `%`: Go between next pair of opening/closing braces within the line
@@ -77,14 +87,49 @@ Normal mode
 
 A multi-line insert that would act at the end of a block of lines of varying lengths is possible using a macro:
 ```vim
+# Start recording macro
 qq
+
+# Begin sequence
 $
 i
-<INSERT CHARACTERS>
-<ESC>
+# Insert characters and return to Normal mode
 j
+
+# Stop recording
 q
 
+# Call the macro once
 @q
+# Call the last called macro 20 times
 20@@
+```
+
+#### Code-folding
+
+LSPs typically create folds automatically.
+
+Normal mode:
+`za`: Toggle the fold to Open/Close
+`zo`: Open
+`zc`: Close
+
+#### Registers
+
+`""`: Default register
+`"0"`: Yank register
+`"_`: Black hole register
+
+Here we can yank to copy, delete multiple lines, and paste the original line from the yank register.
+```vim
+yy
+4dd
+"0p
+```
+
+Alternatively we can use the black hole register to prevent overwriting of the yanked text:
+```vim
+yy
+"_4dd
+p
 ```
