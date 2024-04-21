@@ -49,6 +49,10 @@ List currently set paths:
 ```bash
 git sparse-checkout list
 ```
+Add paths:
+```sh
+git sparse-checkout add <path>
+```
 List all paths not currently set:
 ```bash
 git ls-tree -r HEAD --name-only | grep -vxF -f <(git sparse-checkout list)
