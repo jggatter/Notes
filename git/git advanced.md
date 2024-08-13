@@ -12,9 +12,9 @@ git rev-parse --short HEAD
 
 ## TODO: transform output
 
-git show <branch_name>:<file_path>: View the content of the file from a specific branch without modifying existing file
+`git show <branch_name or commit_sha>:<file_path>`: View the content of the file from a specific branch without modifying existing file
 
-git checkout <branch_name> -- <file_path>: Replace the current version of `example.txt` in your working directory with the version from the `feature-branch`. Keep in mind that this will overwrite any local changes you've made to the file.
+`git checkout <branch_name> -- <file_path>`: Replace the current version of `example.txt` in your working directory with the version from the `feature-branch`. Keep in mind that this will overwrite any local changes you've made to the file.
 
 git reset
 `--soft`: uncommit changes, changes are left staged (index).
@@ -36,6 +36,11 @@ git stash: Temporarily save changes in your working directory that you don't wan
 git cherry-pick: Apply changes from a specific commit to your current branch. This is useful when you want to bring a specific change from one branch to another without merging the entire branch.
 -   `-n` or `--no-commit`: Apply changes from the commit but do not create a new commit.
 -   `-e` or `--edit`: Allow editing of the commit message before committing.
+0. Identify the SHA of the commit that exists on a different branch from the target
+1. Switch to **target** branch (destination)
+2. `git cherry-pick <commit SHA>`
+3. Resolve any conflicts, add, commit
+
 
 git reflog: Shows a log of all the actions performed on your local repository, including commits, branch switches, and more. This can be helpful for recovering lost commits or undoing a rebase.
 `--expire=<time>`: Remove reflog entries older than the specified time.
@@ -117,4 +122,42 @@ git rebase --continue
 When the rebase succeeds, we force-push to the remote merge-queue.
 ```sh
 git push -u origin merge-queue --force-with-lease
+```
+
+## Git Grep
+
+```sh
+# git grep a pattern in all of the content across all commits
+# Filter search by a known path
+# Set GIT_PAGER to cat so less is not used to display output
+# Filter down to just the unique commit SHAs 
+GIT_PAGER=cat git grep "LimmaDE" $(git rev-list --all) -- path/to/package/module/submodule/ \
+	| cut -d : -f1 \
+	| uniq
+
+# Show info on a commit
+git show --stat <commit>
+```
+
+## Git Bisect
+
+Helps find the commit that introduced a bug using a binary search algorithm. Often requires a clean, "modular", and detailed commit history. If singular commits are too large and alter different functionalities of a project then it's not as useful for pinpointing changes that may be the cause.
+
+1. Start via `git bisect start`
+2. Mark the bugged commit as bad
+	a. Current commit using `git bisect bad`
+	b. Older commit using `git bisect bad <SHA>`
+3. Mark a known good commit `git bisect good <SHA>` and you'll start advancing
+4. Test current commit and mark as good or bad, continue until `git` narrows down the bad commit.
+5. Finish the session by running `git bisect reset`, returning the HEAD to where it was before starting the session.
+
+Git Worktrees
+
+Alternative to stashing, switching, doing stuff, switching back, and stash applying. Also useful for reviewing other's PRs locally.
+
+```sh
+# It is a good idea not to test worktrees within other worktrees!
+git worktree add ../path/to/new/worktree/repo_somebranch <branch to checkout>
+cd ../path/to/new/worktree/repo_somebranch
+git checkout -b somebranch
 ```
