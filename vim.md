@@ -1,13 +1,42 @@
-#vim #dotfiles 
+#vim #neovim #dotfiles
 
+In truth I use Neovim and not Vim.
+## Commands
+
+Start a command with `:`.  Using the up and down keys after using `:` will navigate through command history.
+
+`:q` - Quits when there are no unsaved changes in the file
+`:q!` - Forcibly quits without saving unsaved changes in the file
+`:wq` - Saves the file and quits
+`:lua <lua code>` - (Neovim only) can execute lua code
+`:so` - (Neovim only?) Source the current lua(?) file
 ## Configuring
 
 I have my configuration installable through my dotfiles repository.
 
+### Managing packages with Lazy
+
+I use lazy.vim to manage my packages: `:Lazy`
+- Install will install packages
+- Update will update installed packages
+- Restore will restore the packages to match `~/.config/nvim/lazy-lock.json`
+- Sync will overwrite the `lazy-lock.json` with the installed package versions
+- Profile shows startup information
+
+If a previous installation was present, sometimes it is best to start clean by deleting the stdpath:
+`:lua print(vim.fn.stdpath "data")`
+
+```sh
+rm -rf ~/.local/share/nvim
+```
+Then reinstall the packages.
+
+### Language Server Protocols via Mason
+TODO
+
 ## Motions
 
 This [cheatsheet](https://vim.rtorr.com/) is also pretty nice and I took some info from here.
-
 ### Basics
 
 #### Insert
@@ -56,7 +85,10 @@ Normal mode:
 `caw`: Change around word
 `cap`: Change around paragraph
 `ci"`: Change inside `"sometext"`
-`ct<`: Change up until the next `<` character
+`ct<`: Change until before the next `<` character, exclusive
+`cT<`: Change back until the last `<` character, exclusive
+`cf<`: Change until the next `<` character, inclusive
+`cF<`: Change back until the last `<` character, inclusive
 `c$` or `C`: Change until end of line
 
 `r`: Replace a character
