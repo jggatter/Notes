@@ -233,3 +233,5 @@ hello
 ```
 
 ## Tour of Go
+
+See the [[Tour of Go]]
