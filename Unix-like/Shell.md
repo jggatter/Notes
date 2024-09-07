@@ -1,4 +1,4 @@
-#bash #linux #shell #unixlike 
+#bash #linux #shell #unixlike #zsh
 ## Concepts
 ### Interactive vs. Non-interactive Session
 
@@ -257,3 +257,31 @@ Other options:
 - **`setopt NO_CHECK_JOBS`**: This will not warn you about jobs that are running or stopped when you exit the shell.
 - **`setopt CORRECT`**: This will attempt to correct the spelling of commands.
 - **`setopt CORRECT_ALL`**: Similar to `CORRECT`, but applies to all arguments of the command.
+
+## History
+
+`history`: View history where each command has a corresponding number
+`^r`: Incremental reverse search of history
+
+`$?`: Return code of the last executed command
+`$!`: Process ID (PID) of the most recent background command
+
+### History expansion
+
+`!<number>`: Interpolate the respective command from the history
+`!!`: Interpolate the last used command
+`!$`: Interpolate the last argument of the last command
+`!*`: Interpolate all arguments of the last command
+`!^`: Interpolate first argument of the last command
+
+## Oh My Zsh
+
+[Cheatsheet](https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet)
+
+`alias`: List all aliases
+`~`: `cd ~`
+`d`: List last visited directories (`dirs -v`)
+`-`: `cd` to last visited directory
+`1`: `cd -1`
+`...`: `cd ../..`
+

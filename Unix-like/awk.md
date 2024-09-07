@@ -46,7 +46,10 @@ awk 'NR>1 { print }' file
 ### Print lines within a range
 
 ```bash
-# Prints lines 2 and 3
+# Prints line 4 from output of grep of file
+grep "hello" file | awk 'NR==4'
+
+# Prints lines 2 and 3 from file
 awk 'NR>1 && NR < 4' file
 ```
 

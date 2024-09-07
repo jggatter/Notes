@@ -50,6 +50,9 @@ Tag a built image with another tag:
 Remove images
 `docker rmi <image ID>`
 
+Remove a tag from an image that has multiple tags
+`docker rmi <image name>:<tag>`
+
 Push a tagged image to a repository
 `docker push repository/image:version`
 
@@ -131,10 +134,14 @@ OR:
 
 ## Cleaning up
 
-Freeing up resources is important from time to time!
+Freeing up resources is important from time to time! Check how much resources Docker is using up:
+```sh
+docker system df
+# or more granularly
+docker system df -v
+```
 
-Most docker subcommands have a `prune` command
-e.g.
+Most docker subcommands have a `prune` command, e.g.
 `docker container prune`
 
 Delete everything! Even images you may want to keep!

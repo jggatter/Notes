@@ -38,18 +38,19 @@ ln -s my_file.txt my_link.txt
 ```
 
 * When both `FILE` and `LINK` are specified, `ln` creates a link `LINK` to file `FILE`  
-* If only `FILE` is specified or the second argument `LINK` is the present working directory ( `.` ), a link will be created in the present working directory to that file  
+* If only `FILE` is specified, or the second argument `LINK` is the present working directory ( `.` ), a link will be created in the present working directory to that file
+* WARNING: If `FILE` is a relative path, e.g `ln -s .fzf/bin/fzf ~/.local/bin/fzf`, then it expects that the `FILE` is always access from the working directory, i.e. `./.fzf/bin/fzf` which is probably not the case!
 
 When using `ls -l` on the link file, the file type flag should show a `->` symbol denoting where the symlink points to
 
-### Overwiting symlinks
+### Overwriting symlinks
 
 Use the `-f` flag to force creation of the symlink
 `ln -s my_file.txt my_link.txt`
 
 ## Removing symlinks
 
-When removing a symbolic link not append the `/` trailing slash at the end of its name.
+When removing a symbolic link do not append the `/` trailing slash at the end of its name.
 
 If you delete or move the source file to a different location, the symbolic file will be left dangling (broken) and should be removed.
 
