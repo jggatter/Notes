@@ -124,9 +124,12 @@ Normal mode:
 
 Visual mode:
 `d`: Delete
+`<leader>d` (custom): Delete without copying
 `c`: Change
 
 #### Copy-paste
+
+See Advanced for specifics about the register and system clipboards.
 
 Normal mode:
 `yy`: Yank line
@@ -141,9 +144,8 @@ Normal mode:
 
 Visual mode:
 `y`: Copy
-`p`: Paste over
-
-See Advanced for specifics about the register and system clipboards.
+`P`: Paste, without copying any selection
+`p`: Paste, copying any selection (Most of the time this is undesirable)
 
 #### Undo and redo
 
