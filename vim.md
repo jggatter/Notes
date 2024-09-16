@@ -8,11 +8,36 @@ Start a command with `:`.  Using the up and down keys after using `:` will navig
 `:q` - Quits when there are no unsaved changes in the file
 `:q!` - Forcibly quits without saving unsaved changes in the file
 `:wq` - Saves the file and quits
-`:lua <lua code>` - (Neovim only) can execute lua code
+`:lua <lua code>` - (Neovim only) can execute lua code. Example: `:lua print("hello world")
 `:so` - (Neovim only?) Source the current lua(?) file
 ## Configuring
 
 I have my configuration installable through my dotfiles repository.
+
+### Lua
+
+Neovim uses Lua’s package path to locate and require Lua files. When you use the `require` function, Neovim looks for Lua modules based on the paths defined in the `package.path` and `package.cpath` variables.
+```lua
+print(vim.inspect(package.path))
+```
+
+Example:
+```
+~/.config/nvim/lua/ 
+└── plugins/ 
+	├── init.lua 
+	└── none_ls.lua
+```
+From `init.lua`, one can require `none_ls.lua` like this:
+```lua
+local none_ls = require('plugins.none_ls')
+```
+Neovim automatically adds `~/.config/nvim/lua/` to the Lua `package.path` when it's started. The `require` function translates `require('plugins.none_ls')` into a search for `~/.config/nvim/lua/plugins/none_ls.lua`
+
+If you have a different path structure or need to add custom paths, you can extend the `package.path` like this:
+```lua
+package.path = package.path .. ';' .. vim.fn.stdpath('config') .. '/lua/?.lua'
+```
 
 ### Managing packages with Lazy
 
@@ -31,8 +56,11 @@ rm -rf ~/.local/share/nvim
 ```
 Then reinstall the packages.
 
-### Language Server Protocols via Mason
-TODO
+### Managing LSP-related software with Mason
+`:Mason`
+`g?`: help
+`i`: install the selected package
+`U`: update packages
 
 ## Motions
 
@@ -217,6 +245,15 @@ When in find mode, use `;` to go to the next occurrence and `,` to go to the pre
 
 `%`: Go between next pair of opening/closing braces within the line
 
+#### Splits
+
+`:vsplit`: Create a vertical split
+`:hsplit`: Create a horizontal split
+
+`^l`:  Move cursor to the split to the right
+`^h`: Move the cursor to the split to the left
+`^j`: Move the cursor to the split downward
+`^k` Move the cursor to the split upward
 #### Code-folding
 
 LSPs typically create folds automatically.
@@ -268,3 +305,23 @@ q
 # Call the last called macro 20 times
 20@@
 ```
+
+#### NvChad
+
+`<Leader>` is spacebar
+`:NvCheatsheet` or `<Leader>ch`: Open up the mappings cheatsheet
+`<Leader>th`: Browse and apply themes
+
+`<Leader>/`: Comment current or selected line(s)
+`<Leader>fm`: Format the current file using an integrated formatter
+
+`^N`: Navigate to the next item in an insert auto-complete list
+`^P` Navigate to the previous item in an insert auto-complete ist
+`Enter`: Accept the auto-complete list selection
+
+
+Telescope:
+`<Leader>ff`: Find files
+`<Leader>fa`: Find all files
+`<Leader>gt` Git status with diffs
+`<Leader>cm`: Browse git commit log diffs
