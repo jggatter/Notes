@@ -6,6 +6,7 @@ Cmd + Shift + P: Command palette
 Cmd + P: File search
 Cmd + \`: Toggle integrated terminal
 Cmd + Shift + \`: Create a new terminal
+Cmd + Option + H: Open call hierarchy
 
 Cmd + Option + Left/Right arrow keys: Navigate left/right through tabs
 Cmd + Shift + E: Toggle/focus on the sidebar versus editor
