@@ -40,9 +40,19 @@ su - jgatter
 List images on local system
 `docker images`
 
-Build from a Dockerfile in the present working directory and tag it
+Inspect an image, e.g. to determine architecture it was built for:
+`docker image inspect <image id> | grep Architecture` 
+
+Build from a Dockerfile in the present working directory and tag the image:
 `docker build -t repository/image:version .`
 Can also do as separate steps using `docker build` and `docker tag`
+
+Build from a Dockerfile specified by its path and tag the image:
+`docker build -f path/to/Dockerfile -t repository/image:version .`
+
+Build for a specific OS and architecture like Linux x86:
+`docker buildx build --platform linux/amd64 -t repository/image:version .`
+Note: The server must be multi-platform capable. Ex: Install Rosetta on Mac M1, M2, and other systems with Apple Silicon chips.
 
 Tag a built image with another tag:
 `docker tag <existing image tag> <new image tag>`
@@ -55,6 +65,9 @@ Remove a tag from an image that has multiple tags
 
 Push a tagged image to a repository
 `docker push repository/image:version`
+
+Push all tags of an image name to a repository:
+`docker push --all-tags repository/image`
 
 Pull a hosted image from the docker registry to the local system
 `docker pull repository/image:version`
@@ -77,7 +90,7 @@ aws ecr get-login-password --profile <AWSPROFILE> \
 
 ### Running
 
-When attached to running container, \^C will terminate while (holding both at the same time) \^P\^Q detaches. Reattach using `docker attach`.
+When attached to running container, `^C` will terminate while (holding both at the same time) `^P^Q` detaches. Reattach using `docker attach`.
 
 Simplest example: Launch a container with the specified tagged image
 `docker run --rm -it repository/image:version`
@@ -86,7 +99,7 @@ Simplest example: Launch a container with the specified tagged image
 `man docker run`
 
 `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
-Note COMMAND, e.g. `/bin/bash`
+Note `COMMAND`, e.g. `/bin/bash`
 `docker run --rm -it repository/image:version /bin/sh`
 
 ##### Main flags:
@@ -95,14 +108,20 @@ Note COMMAND, e.g. `/bin/bash`
 `--rm` : Automatically clean up the container and remove the file system when the container exits
 
 ##### Useful flags:
-* *`--name` : Give the container a name for easy identification/referencing.
 * `-p <local-host-IP>:<local-host-port>:<docker-container-port>` : Map the container port to a local host's IP and port. Can also do just ports, e.g. `-p 5432:5432`
 * `--entrypoint <command>` : Override the `ENTRYPOINT` command of the Dockerfile, e.g. `/bin/sh` will start the container's shell.
 * `--mount <???:???:???>` : TODO
 * `--volume` : TODO
-* `-d` : Start in detatched instead of attached mode. Containers exit when root process used to run container exits. If used with `--rm`, remove the container when it or the daemon exits
+* `-d` : Start in detached instead of attached mode. Containers exit when root process used to run container exits. If used with `--rm`, remove the container when it or the daemon exits
 * `-e` : Set environment variables that are available for the process that will be launched inside of the container. See also `--env-file` in manual.
+* `--name` : Give the container a name for easy identification/referencing.
+* `--platform`: Specify the OS and CPU architecture to run. With Rosetta installed on Apple Silicon Macbooks, specify `linux/amd64` to run images that were built for Linux and x86 architecture. 
 
+Alternatively, you can `create` a container without running it. It prepares the container for execution by setting up any configurations specified in the command such as volumes, environment variables, and networking options. However, the main process isn't started until `docker start` is invoked. Example:
+```sh
+docker create --name my-container nginx
+```
+`docker run` is just a combination of `create` and `start`.
 ### Interacting
 The operator can identify the container by its long UUID, short UUID, or container name.
 
@@ -125,13 +144,17 @@ Stop the container (does not delete unless was run with `--rm`)
 Start a stopped container
 `docker start <container ID>`
 
-Remove/delete container(s)
-`docker rm <container IDs>
-Remove all stopped containers
-`docker container prune`
-OR:
-`docker rm $(docker ps -a -q -f status=exited)`
-
+Copy files from a container
+`docker cp <container id>:/path/to/file/in/container /path/to/local/dir`
+Alternatively:
+```sh
+# Create a temporary container from the image:
+docker create --name temp-container your-image-name
+# Copy the file from the newly created container:
+docker cp temp-container:/path/to/file /local/path
+# docker rm temp-container
+docker rm temp-container
+```
 ## Cleaning up
 
 Freeing up resources is important from time to time! Check how much resources Docker is using up:
@@ -142,11 +165,17 @@ docker system df -v
 ```
 
 Most docker subcommands have a `prune` command, e.g.
-`docker container prune`
+```sh
+# Remove/delete container(s)
+docker rm <container IDs>
+# Remove all stopped containers
+docker container prune
+# OR:
+docker rm $(docker ps -a -q -f status=exited)
+```
 
 Delete everything! Even images you may want to keep!
-```
-docker system prune --volumes --all
+`docker system prune --volumes --all`
 
 # Not cache layers
 docker system prune
