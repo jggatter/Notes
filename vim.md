@@ -22,6 +22,16 @@ I have my configuration installable through my dotfiles repository.
 
 ### Lua
 
+#### Neovim
+
+[docs](https://neovim.io/doc/user/lua.html) (probably worth a read sometime)
+
+Neovim comes with its own bundled Lua interpreter.
+
+Package files typically get installed to ~/.local/share/nvim or /usr/local/share/nvim.
+
+#### Locating files
+
 Neovim uses Lua’s package path to locate and require Lua files. When you use the `require` function, Neovim looks for Lua modules based on the paths defined in the `package.path` and `package.cpath` variables.
 ```lua
 print(vim.inspect(package.path))
