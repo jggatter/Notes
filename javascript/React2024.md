@@ -66,7 +66,7 @@ setForm({
 
 #### Initializer function: Avoid recreating initial state
 
-You should avoid recreating the intial state. React stores it once and ignores it on successive renders:
+You should avoid recreating the initial state. React stores it once and ignores it on successive renders:
 ```js
 function TodoList() {
   const [todos, setTodos] = useState(createInitialTodos());
@@ -157,7 +157,7 @@ export default function CountLabel({ count }) {
 }
 ```
 
-You can only call `set` function while rendering if you're inside a condition block like above. Otherwise, the component would re-render ad infitum until it crashes. Also you can only update the state of the currently rendering component. Calling a `set` function of another component while rendering is an error. Finally, your `set` function should remain pure-- still update the state without mutation.
+You can only call `set` function while rendering if you're inside a condition block like above. Otherwise, the component would re-render ad infinitum until it crashes. Also you can only update the state of the currently rendering component. Calling a `set` function of another component while rendering is an error. Finally, your `set` function should remain pure-- still update the state without mutation.
 
 ### `useEffect`
 
@@ -380,9 +380,11 @@ HTML and JSX are not 1-for-1 in their syntax. Some examples:
 - HTML's `for` attribute in `<label>` and `<output>` is replaced in JSX with `htmlFor`.
 
 Unlike HTML, JSX also requires:
-- Content to be returned within a root element, i.e. enclose everything within a <div> or another parent tag.
-- All tags must be closed, either by a closing tag or self-closing tag
+- Content to be returned within a root element, i.e. enclose everything within a `<div>` or another parent tag.
+- All tags must be closed, either by a closing tag or self-closing tag.
 - camelCase for attributes, see above paragraph.
+
+An empty `<>` tag with closing tag `</>` is called a fragment (`<Fragment>...</Fragment>`). It doesn't translate to any HTML in the DOM, but is useful for acting as a parent tag.
 
 JSX properties aka "props" are essentially the same thing as HTML attributes. They're more powerful in that they can accept JS expressions.
 
@@ -400,6 +402,13 @@ export default function TodoList() {
     <p>Date: {formatDate(today)}</p>
   );
 }
+```
+
+### Links
+
+The `<a>` tag causes a refresh of the page while the `<Link>` component does not. The `href` attribute should be replaced with `to`.
+```js
+import {Link} from 'react-router-dom';
 ```
 
 ### Conditionally returning JSX 
@@ -448,4 +457,39 @@ if (!isPacked) {
   );
 }
 return list;
+```
+
+## Types of applications
+
+- Single Page Application (SPA): Sends a single HTML file and Javascript bundle to the client's browser and JavaScript loads the entire UI including routes.
+  - Very interactive, good for dynamic fast interfaces
+  - Can deploy to any type of host (no server required necessarily.)
+  - Initial page load times can be long
+  - Search Engine Optimization (SEO) is not as ideal
+- Server-side Rendered (SSR): Initial page load happens on the server and the server sends the fully rendered page to the client. You can fetch data and load it as well.
+  - Use Next.js or Remix frameworks which can act as a wrapper around React
+  - Hosting a server is required. Can use Vercel, Netlify, etc..
+- Static Site Generator - Meta framework generates static HTML files from React code at build time. These are very fast websites.
+  - Meta frameworks include Gatsby, Astro, etc.
+
+## Project setup
+
+```bash
+# macOS
+brew update
+brew upgrade
+brew install node
+brew install corepack
+corepack enable pnpm
+
+# Create project using Vite
+pnpm create vite@latest react-crash-2024
+cd react-crash-2024
+pnpm install
+pnpm run dev
+
+# Tailwind
+pnpm install -D tailwindcss postcss autoprefixer
+# Create postcss and tailwind config.js files
+pnpx tailwindcss init -p 
 ```

@@ -26,7 +26,8 @@ For Scratch - Base 200 MB/s per TiB of storage.
 Persistent offers 50 MB/s, 100 MB/s, and 200 MB/s per TiB of storage
 Burst up to 1,300 MB/s per TiB (credit system - earn credits when you consume below baseline performance and spend when you go above)
 
-Architecture:
+### Architecture
+
 Client VPC contains clients (EC2 instances with Lustre file system installed)
 An FSx for Lustre File System and a S3 bucket associated.
 A number of lustre file servers handle storage requests placed against it and each provide an in-memory cache which allows faster access to frequently used data.

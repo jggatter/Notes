@@ -18,8 +18,15 @@ $ xcode-select --install
 Linux users should generally install GCC or Clang, according to their distribution’s documentation. For example, if you use Ubuntu, you can install the `build-essential` package.
 
 ## Update
+
+As packages drop support for older software in the Rust toolchain, it can be a good idea to update to the latest versions:
 ```sh
 rustup update
+```
+
+Then update any programs, e.g.
+```sh
+cargo install lsd
 ```
 
 ## Without `cargo`: `rustc`
