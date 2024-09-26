@@ -1,3 +1,9 @@
+---
+id: vim
+aliases: []
+tags: []
+---
+
 #vim #dotfiles 
 
 ## Configuring
