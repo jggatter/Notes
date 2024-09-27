@@ -16,6 +16,7 @@ Start a command with `:`.  Using the up and down keys after using `:` will navig
 `:wq` - Saves the file and quits
 `:lua <lua code>` - (Neovim only) can execute lua code. Example: `:lua print("hello world")
 `:so` - (Neovim only?) Source the current lua(?) file
+`:e <path to file>` (autocompletable, see NvChad section): Edit a file
 ## Configuring
 
 I have my configuration installable through my dotfiles repository.
@@ -212,6 +213,8 @@ p
 
 The `"*` register might achieve the same thing? 
 
+TODO: On an SSH connection I get a complaint about no clipboard provider. Neovim probably tries to store it on my EC2 clipboard rather than my local machine.
+
 ##### WSL
 
 Visual mode:
@@ -338,8 +341,14 @@ q
 `<enter>`: Accept the auto-complete list selection
 `^c` or `<esc>` to close the list without accepting
 
-Telescope:
+##### Telescope:
+
 `<Leader>ff`: Find files
 `<Leader>fa`: Find all files
 `<Leader>gt` Git status with diffs
 `<Leader>cm`: Browse git commit log diffs
+
+##### nvim-tree
+
+`^n`: Open/close the file explorer sidebar
+
