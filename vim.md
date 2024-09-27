@@ -333,10 +333,10 @@ q
 `<Leader>/`: Comment current or selected line(s)
 `<Leader>fm`: Format the current file using an integrated formatter
 
-`^N`: Navigate to the next item in an insert auto-complete list
-`^P` Navigate to the previous item in an insert auto-complete ist
-`Enter`: Accept the auto-complete list selection
-
+`<tab>` or `^n`: Navigate to the next item in an insert auto-complete list
+`<shift + tab>` or `^p` Navigate to the previous item in an insert auto-complete ist
+`<enter>`: Accept the auto-complete list selection
+`^c` or `<esc>` to close the list without accepting
 
 Telescope:
 `<Leader>ff`: Find files
