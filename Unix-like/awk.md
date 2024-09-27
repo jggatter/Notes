@@ -91,6 +91,11 @@ awk 'BEGIN { FS=OFS="," } NF { print $1, $3 }' file
 
 You may also use `END` blocks to perform some tasks after the last record has been read.
 
+#### `print` vs. `print $0`
+
+Without any arguments, `print` defaults to printing the entire current line, `$0`. However if there are multiple fields in the line (i.e. columns separated by spaces or another delimiter) then `print` will output them separated by the default `OFS` (usually space).
+
+`print $0` will explicitly tell `awk` to print the entire line exactly as it was read from the input without any reformatting based on the field separator.
 ## Performing calculations column-wise
 
 AWK supports the standard arithmetical operators. It will convert values between text and numbers automatically depending on the context. Also, you can use your own variables to store intermediate values.
@@ -278,3 +283,16 @@ Transform the first two columns of a csv:
 ```bash
 awk -F, 'NR==1{split($0,a);next} NR==2{split($0,b);next} {for(i=1;i<=NF;i++) print a[i]"\t"b[i]}' Model.csv
 ```
+
+## Randomly sampling down a file
+
+Here we print 1% of non-empty lines. `srand()` initializes the random number generator in the `BEGIN` block. `!` negates the matching of empty lines `^$`. Then we have a `0.01` chance that `rand()` will print the line.
+```bash
+awk 'BEGIN {srand()} !/^$/ { if (rand() <= .01) print $0}' some.csv
+```
+
+If the file is a CSV with a header we can guarantee the header is printed:
+```bash
+awk 'BEGIN {srand()} NR == 1 {print; next} !/^$/ { if (rand() <= .01) print $0 }' some.csv
+```
+`NR == 1` condition checks if the row number is one and if so we print it and continue. Else, we are not the header row so we proceed with the random printing of non-empty lines.
