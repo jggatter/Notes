@@ -151,7 +151,7 @@ Helps find the commit that introduced a bug using a binary search algorithm. Oft
 4. Test current commit and mark as good or bad, continue until `git` narrows down the bad commit.
 5. Finish the session by running `git bisect reset`, returning the HEAD to where it was before starting the session.
 
-Git Worktrees
+## Git Worktrees
 
 Alternative to stashing, switching, doing stuff, switching back, and stash applying. Also useful for reviewing other's PRs locally.
 
