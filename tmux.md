@@ -53,6 +53,29 @@ The prefix key is key combination, by default `^b`, that enables entering of com
 `<prefix>!` convert a pane into a new window
 `<prefix><spacebar>` toggle between pane layouts
 
+
+## Navigating
+https://superuser.com/a/209608
+`<prefix>[`:  Enter copy mode to copy text or view the history.
+
+Once in this mode you can do the following:
+
+Function                     vi
+--------                     --              -----
+Half page down                `^d`
+Half page up                     `^u`
+Next page                         `^f`
+Previous page                  `^b`
+Scroll down                      `<shift>j` or `^e` or `^<down>`
+Scroll up                           `<shift>k` or `^y` or `^<up>`
+Search again                    `n`
+Search again in reverse  `N`
+Search backward            `?`
+Search forward                `/` 
+
+https://superuser.com/a/510310
+Option `set -g mouse on` enables mouse mode
+
 ## Integrations
 
 ### `fzf`
