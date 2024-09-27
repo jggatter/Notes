@@ -174,10 +174,27 @@ docker container prune
 docker rm $(docker ps -a -q -f status=exited)
 ```
 
+Before deleting images, it's a good idea to prune containers that have stopped / that are dangling. Then you can prune them:
+```sh
+# Remove image(s)
+docker rmi <image IDs>
+
+# An image with multiple repository references or tags 
+# may need to be forcefully removed
+docker rmi -f <image IDs>
+
+# Removes dangling images
+docker image prune
+
+# Alternatively
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+```
+
 Delete everything! Even images you may want to keep!
 `docker system prune --volumes --all`
 
 # Not cache layers
+```sh
 docker system prune
 ```
 
