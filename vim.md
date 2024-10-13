@@ -13,10 +13,16 @@ Start a command with `:`.  Using the up and down keys after using `:` will navig
 
 `:q` - Quits when there are no unsaved changes in the file
 `:q!` - Forcibly quits without saving unsaved changes in the file
+`:w` - Save the file
+`:w <filepath>` - Save the file to a path
+`:saveas <filepath>` - Same thing as above?
 `:wq` - Saves the file and quits
-`:lua <lua code>` - (Neovim only) can execute lua code. Example: `:lua print("hello world")
+`:e <path to file>` (autocompletable): Edit a file
+`:pwd` - Display the present working directory
+
+`:lua <lua code>` - (Neovim only) can execute lua code. Example: `:lua print("hello world")`
 `:so` - (Neovim only?) Source the current lua(?) file
-`:e <path to file>` (autocompletable, see NvChad section): Edit a file
+
 ## Configuring
 
 I have my configuration installable through my dotfiles repository.
@@ -341,14 +347,54 @@ q
 `<enter>`: Accept the auto-complete list selection
 `^c` or `<esc>` to close the list without accepting
 
-##### Telescope:
+##### nvim-tree
 
-`<Leader>ff`: Find files
+`^n`: Open/close the file explorer sidebar
+`k` and `j` to navigate up/down through the files/directories
+`<enter>`: Edit the selected file or expand/close the selected directory
+`e`: Rename the selected file or directory
+Remember `^l` and `^h` to move between the sidebar buffer and the edit buffer
+
+##### Tabufline
+
+I disable this feature in favor of using [[tmux]] windows.
+
+Tabufline is the top bar portion of the interface where open buffers are managed.
+It only shows if you have more than a single file buffer open.
+The open buffers show as tabs either with a red `x` or green dot.
+The red `x` means the file is already saved and can be safely closed.
+The green dot means the file needs to be saved.
+
+Tabs can be closed with the standard `:q` command.
+`:tabnew` - Open a new tab
+`:tabedit` - Open the file in a new tab
+`:tcd <path>` - Change directory?
+
+#### Telescope:
+
+`<Leader>ff` or `:Telescope fd`: Find files
 `<Leader>fa`: Find all files
 `<Leader>gt` Git status with diffs
 `<Leader>cm`: Browse git commit log diffs
 
-##### nvim-tree
+#### nvim-surround
 
-`^n`: Open/close the file explorer sidebar
+`:h nvim-surround`
+
+The three "core" operations:
+- `ys{motion}{char}`: Add
+- `ds{char}`: Delete
+- `cs{target}{replacement}`: Change
+
+For the following examples, `*` will denote the cursor position:
+
+    Old text                    Command         New text
+--------------------------------------------------------------------------------
+    surr*ound_words             ysiw)           (surround_words)
+    *make strings               ys$"            "make strings"
+    [delete ar*ound me!]        ds]             delete around me!
+    remove <b>HTML t*ags</b>    dst             remove HTML tags
+    'change quot*es'            cs'"            "change quotes"
+    <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+    delete(functi*on calls)     dsf             function calls
 
