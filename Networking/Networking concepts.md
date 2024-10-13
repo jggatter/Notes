@@ -1,3 +1,6 @@
+# Networking concepts
+
+## IP and CIDR
 
 IP addresses:
 
@@ -7,6 +10,8 @@ Classless:
 
 CIDR = Classless Interdomain Routing
 CIDR Blocks?
+
+Subnet masks
 
 ## AWS Networking
 
@@ -20,6 +25,8 @@ Routing Table
 
 Transit Gateway
 
+Transit Gateway Attachment
+
 NAT Gateway
 
 Load Balancer
@@ -27,3 +34,8 @@ Load Balancer
 Target Groups
 
 Elastic Network Interfaces
+
+Security Groups
+
+Access Control Lists (ACLs)
+
