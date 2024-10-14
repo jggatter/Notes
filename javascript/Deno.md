@@ -1,5 +1,5 @@
 # Deno
-#javascript
+#javascript #typescript 
 
 
 ## Initialize and configure
