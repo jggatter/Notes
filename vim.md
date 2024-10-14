@@ -150,6 +150,12 @@ Visual mode:
 `<leader>d` (custom): Delete without copying
 `c`: Change
 
+`>>`: Indent by `shiftwidth`
+`<<`: Deindent by `shiftwidth`
+`==`: Re-indent (TODO: What does this mean?)
+
+`:set shiftwidth=2`: Change width for `<<`,  `>>`, and `==`
+
 #### Copy-paste
 
 See Advanced for specifics about the register and system clipboards.
@@ -252,11 +258,13 @@ Normal mode
 `0`: Jump to the beginning of a line
 `^`: Jump to the first non-blank character of a line
 `$`: Jump to the end of a line
+`%`: Go between next pair of opening/closing braces within the line
 
 `gg`: Go to the first line of the file
 `G`: Go to last line of the file
 `42G`: Go to line 42 in the file
 `-42G`: Go the the 42nd to last line in the file
+`\`0`: Go to the position where Vim last exited
 
 `gd`: Go to definition of a variable, class, function, etc.
 `gD`: Go to global definition
@@ -270,7 +278,6 @@ Normal mode
 `T(`: Go to before the previous occurrence of character `(` within the line
 When in find mode, use `;` to go to the next occurrence and `,` to go to the previous occurrence.
 
-`%`: Go between next pair of opening/closing braces within the line
 
 #### Splits
 
@@ -281,6 +288,7 @@ When in find mode, use `;` to go to the next occurrence and `,` to go to the pre
 `^h`: Move the cursor to the split to the left
 `^j`: Move the cursor to the split downward
 `^k` Move the cursor to the split upward
+
 #### Code-folding
 
 LSPs typically create folds automatically.
@@ -342,10 +350,15 @@ q
 `<Leader>/`: Comment current or selected line(s)
 `<Leader>fm`: Format the current file using an integrated formatter
 
+###### nvim-cmp
+
+Auto-completion:
+
 `<tab>` or `^n`: Navigate to the next item in an insert auto-complete list
 `<shift + tab>` or `^p` Navigate to the previous item in an insert auto-complete ist
 `<enter>`: Accept the auto-complete list selection
-`^c` or `<esc>` to close the list without accepting
+`^e` to close the list without accepting and continue inserting.
+`^c` or `<esc>` to close the list and return to normal mode.
 
 ##### nvim-tree
 
