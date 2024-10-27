@@ -1,5 +1,5 @@
 # CSS Colors
-#css #colors #rgb #hex #hsl
+#css #colors #rgb #hex #hsl #opacity
 
 Colors can be specified by
 - predefined color names
@@ -32,12 +32,15 @@ Each color is a 8-bit unsigned integer.
 The alpha channel for RGBA is a number between 0.0 and 1.0.
 - `0.0` is fully transparent.
 - `1.0` is fully opaque.
+See [[22 Opacity and Transparency]].
 
 ### HSL and HSLA
 
-HSL and HSLA in basically the same way as RGB/RGBA. Does anyone use these?
-HSL by hsl(<hue>, <saturation>, <light>)
-HSLA by hsla(<hue>, <saturation>, <light>, <alpha>)
+HSL stands for Hue, Saturation and Lightness.
+
+HSL and HSLA are specified in basically the same way as RGB/RGBA. 
+* HSL by `hsl(<hue>, <saturation>, <light>)`
+* HSLA by `hsla(<hue>, <saturation>, <light>, <alpha>)`
 
 `hue` is a degree on the color wheel from 0 to 360.
 - `0` is red.
@@ -68,3 +71,25 @@ HEX by `#dddddd`, the hexadecimal value representation of RGB.
 `00` is black, `ff` is the respective full color of red, green, or blue.
 Sometimes you will see a 3-digit hex code. This is shorthand for the 6-digit code.
 `#rgb`, e.g. `#f0c` which represents `##ff00cc`
+
+### Keyword values for color
+
+The `transparent` keyword value for color fields is equivalent to `rgba(0,0,0,0)`.
+
+The `currentcolor` keyword value is like variable which holds the current color property value of an element.
+
+It can be used to stylize other properties for an element:
+```css
+div {
+  color: blue;  
+  border: 10px solid currentcolor;
+}  
+```
+Or properties of another element:
+```css
+body {  color: purple;}  
+div {  background-color: currentcolor;}
+```
+
+`inherit` specifies a property should inherit its value from its parent element.
+

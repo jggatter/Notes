@@ -1,5 +1,5 @@
 # CSS Specificity
-#css #specificity #cascading #selectors #class #pseudo-class #attributes #pseudo-elements #!important
+#css #specificity #cascading #selectors #class #pseudo-class #attributes #pseudo-elements #rules #!important
 
 If there are two or more rules that point to the same element,
 the selector with the highest specificity value will win and apply its style.

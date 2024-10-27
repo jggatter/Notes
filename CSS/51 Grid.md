@@ -1,4 +1,7 @@
 # CSS Grid
+#css #grid #columns #layout #todo
+
+TODO: Take notes for real then combine with these old notes
 
 ## Defining a grid container
 
