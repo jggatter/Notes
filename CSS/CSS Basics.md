@@ -1746,7 +1746,7 @@ dialogBtn.addEventListener('click', () => myDialog.showModal());
 </script>
 ```
 
-## `::placeholder`
+### `::placeholder`
 
 Selects the placeholder text of `<input>` or `<textarea>` elements.
 
@@ -1832,7 +1832,7 @@ ul {
 }
 ```
 
-## Horizontal
+### Horizontal
 
 There are two ways to create horizontal nav bars.
 
@@ -2612,7 +2612,7 @@ Example:
 }
 ```
 
-## `max()` and `min()`
+### `max()` and `min()`
 
 `max()` uses the largest submitted value as the property value.
 `max()` accepts a comma-delimited list of values.
@@ -3186,6 +3186,7 @@ div {
   transition: width 2s linear 1s;
 }
 ```
+
 ## Animations
 
 We can animate HTML elements without using JavaScript!
