@@ -309,3 +309,15 @@ layouts for different screen sizes. We need to use `flex-wrap: wrap` too.
   }
 }
 ```
+
+### Preventing text wrapping
+
+At some viewport sizes, text within flex items might be wrapping undesirably.
+
+On the flex item we can set a `min-width: fit-content`.
+```css
+.flex-container > * {
+  min-width: fit-content;
+  flex: 1;
+}
+```

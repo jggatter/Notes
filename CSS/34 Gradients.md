@@ -1,5 +1,5 @@
 # CSS Gradients
-#css #gradients #colors #todo
+#css #gradients #colors
 
 Gradients allow us to display smooth transitions between two or more colors.
 
@@ -105,9 +105,78 @@ Slanted yellow and red lines:
 
 ## Radial gradients
 
-TODO
+(These look not very useful... I think I'll skip for now)
 
 ## Conical gradients 
 
-TODO
+A conic gradient has color transitons rotated around a center point.
 
+It must have at least two colors defined.
+
+Syntax:
+```
+conic-gradient(
+  [from <angle>]
+  [at <position>,]
+  <color> [degree],
+  <color> [degree], 
+  ...
+);
+```
+
+5-color pie chart
+```css
+#grad {
+  background-image: conic-gradient(red, yellow, green, blue black);
+  border-radius: 50%; /* Make a circle! */
+}
+```
+
+3 colors and degrees:
+```css
+#grad {
+  background-image: conic-gradient(red 45deg yellow 90deg green 210deg);
+}
+```
+
+### `from` angle
+
+The `from` angle determine the start of the gradient.
+```css
+#grad {
+  background-image: conic-gradient(from 90deg, red, yellow, green);
+}
+```
+
+### `at` position
+
+
+The `at` position determines the center of the gradient
+relative to the center of the element.
+```css
+#grad {
+  background-image: conic-gradient(at 60% 45%, red, yellow, green);
+}
+```
+Gradient center is slightly up and over to the right.
+
+### Repeating a conic gradient
+
+`repeating-conic-gradient()` repeats a conic gradient.
+
+This makes for pretty sick designs. Placeholder avatar icons!
+
+```css
+#grad {
+  background-image: repeating-conic-gradient(red 10%, yellow 20%);
+  border-radius: 50%;
+}
+```
+
+With color starts and stops:
+```css
+#grad {
+  background-image: repeating-conic-gradient(red 0deg 10deg, yellow 10deg 20deg, blue 20deg, 30deg);
+  border-radius: 50%;
+}
+```
