@@ -2,11 +2,12 @@
 
 ## Plugins and Configuration
 
-The tmux.conf file is the configuration file for tmux. Mine is in ~/.config/tmux/tmux.conf. `tmux source ~/.config/tmux/tmux.conf` can be used to source the conf file.
+The tmux.conf file is the configuration file for tmux. Mine is in ~/.config/tmux/tmux.conf. After cloning tpm, `tmux source ~/.config/tmux/tmux.conf` can be used to source the conf file.
 
-tpm is the tmux plugin manager that installs and loads `tmux` plugins. At the bottom of the ~/.config/tmux/tmux.conf the `run` line sets tpm to download packages to ~/.tmux/plugins/tpm. tpm itself gets installed to this directory. `set -g @plugins` lines specify plugins to be installed by tpm. `<prefix>I` installs these plugins.
+tpm is the tmux plugin manager that installs and loads `tmux` plugins. It must be cloned from GitHub prior to usage. At the bottom of the ~/.config/tmux/tmux.conf the `run` line sets tpm to download packages to ~/.tmux/plugins/tpm. tpm itself gets installed to this directory. `set -g @plugins` lines specify plugins to be installed by tpm. Once tpm is cloned and the tmux conf is sourced, `<prefix>I` installs these plugins.
 
-If tpm returns exit code 1 upon trying to install plugins, then it is a good idea to kill all sessions, restart tmux, and retry. Additionally, reinstalling tmux might help.
+If tpm returns exit code 1 upon trying to install plugins, then it is a good idea to kill all sessions, restart tmux, and retry. Additionally, reinstalling tmux and tpm might help.
+
 ## Sessions, windows, and panes
 
 Sessions are the top-most layer and are a collection of one of more windows. You can have multiple sessions open at a time, but you're typically only attached to one. Each session has a single active window. Windows are containers to one or more panes. Windows are the equivalent to tabs in a web browser. Each window has a currently active pane and allows switching between panes. The currently active window is marked on the status line with an `*`. Panes are splits in the window and represent an individual terminal session. There is only one active at a time that you'll interact with.
