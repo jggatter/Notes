@@ -19,6 +19,7 @@ Start a command with `:`.  Using the up and down keys after using `:` will navig
 `:wq` - Saves the file and quits
 `:e <path to file>` (autocompletable): Edit a file
 `:pwd` - Display the present working directory
+`:cd <path of dir>` - Change the present working directory.
 
 `:lua <lua code>` - (Neovim only) can execute lua code. Example: `:lua print("hello world")`
 `:so` - (Neovim only?) Source the current lua(?) file
