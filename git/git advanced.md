@@ -156,6 +156,10 @@ Helps find the commit that introduced a bug using a binary search algorithm. Oft
 Alternative to stashing, switching, doing stuff, switching back, and stash applying. Also useful for reviewing other's PRs locally.
 
 ```sh
+# Make sure we're up to date
+git checkout main
+git pull
+
 # It is a good idea not to test worktrees within other worktrees!
 git worktree add ../path/to/new/worktree/repo_somebranch <branch to checkout>
 cd ../path/to/new/worktree/repo_somebranch
