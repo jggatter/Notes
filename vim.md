@@ -312,6 +312,12 @@ Visual mode
 3. Now press `I`, which will put the editor in `INSERT` mode and then type the character(s) to insert, e.g. `#` for a comment in Python.
 4. You may need to press ESC twice
 
+Alternatively a common use case is putting the cursor in `INSERT` mode at the end of each line of where all lines have varying lengths.
+1. Enter `VISUAL LINE` mode using `<shift>+v` and proceed to select all lines of interest.
+2. `g$` moves the cursor to the end of each respective line
+3. `<shift>+a` will have us append to the end of each line, where we can now delete or insert characters.
+4. Then we can `ESC` or `^C` to exit `INSERT` mode
+
 #### Macros:
 
 1. Go to desired cursor position
