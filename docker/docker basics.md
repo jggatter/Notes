@@ -50,9 +50,27 @@ Can also do as separate steps using `docker build` and `docker tag`
 Build from a Dockerfile specified by its path and tag the image:
 `docker build -f path/to/Dockerfile -t repository/image:version .`
 
-Build for a specific OS and architecture like Linux x86:
+Symptom: `exec /bin/sh: exec format error`
+Build for a specific OS and architecture like Linux amd64 aka x86-64:
 `docker buildx build --platform linux/amd64 -t repository/image:version .`
 Note: The server must be multi-platform capable. Ex: Install Rosetta on Mac M1, M2, and other systems with Apple Silicon chips.
+Conversely for Linux amd64 systems, we can build a arm64 image using QEMU emulation:
+```sh
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+docker buildx create --name mybuilder --use
+docker buildx inspect --bootstrap
+```
+Bootstrapping performs additional setup, such as creating a **BuildKit** container, which is essential for running builds in isolation and enabling QEMU emulation for cross-platform builds.
+
+Adjust Dockerfile to specify platform to guarantee the right base image is selected
+```Dockerfile
+FROM --platform=linux/arm64 python:3.12-slim
+```
+Build
+```sh
+docker buildx build --platform linux/arm64 -t <image:tag> .
+```
 
 Tag a built image with another tag:
 `docker tag <existing image tag> <new image tag>`
