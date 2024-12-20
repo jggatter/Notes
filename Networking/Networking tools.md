@@ -22,7 +22,7 @@ TODO: What is this
 
 ## `ss` / `netstat`
 
-`ss` investigates sockets. More modern compared to `netstat`. Currently ships with Linux but not macOS.
+`ss` investigates sockets. More modern compared to `netstat`. Currently ships with Linux but not macOS. See `lsof` for a quick macOS solution.
 
 See what process is using port 5678:
 `sudo ss -ltnp | grep ':5678'
@@ -32,6 +32,11 @@ This same command works with `netstat` as well. Flags explained:
 * `-t` show TCP sockets
 * `-n` display addresses and ports as numbers
 * `-p` list processes using a socket
+
+## `lsof`
+
+On macOS I used this to find what processes are using port 5000
+`lsof -i tcp:5000`
 
 ## `ipconfig`
 
