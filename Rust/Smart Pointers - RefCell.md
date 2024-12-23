@@ -36,6 +36,7 @@ potentially rejecting a program that would run correctly.
 
 Like `Rc<T>`, `RefCell<T>` is only used for single-threaded scenarios.
 We'll get a compile-time error if we try it in a multi-threaded context.
+`Mutex<T>` is the thread-safe version.
 
 ## Recap: Choosing a smart pointer and Interior Mutability
 
