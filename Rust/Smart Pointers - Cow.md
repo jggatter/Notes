@@ -6,7 +6,14 @@
 `Cow` is a smart pointer that stands for "clone-on-write".
 This functionality can enclose and provide immutable access to borrowed data,
 and can lazily clone when mutation or ownership is required.
-It helps us avoid cloning an object unless it's necessary.
+It can also work for owned data.
+`Cow` helps us avoid cloning an object unless it's necessary,
+saving on memory and computational costs.
+
+`Cow` contrast with `Box<T>` in a few ways:
+`Box<T>` always takes ownership of the data and allocates on the heap.
+`Cow` avoids heap allocation if borrowed.
+`Box<T>` is also for types of unknown size at compile time.
 
 It is designed to work with general and borrowed data via the `Borrow` trait.
 It implements `Deref`, so we can call non-mutating methods directly on the data enclosed.
