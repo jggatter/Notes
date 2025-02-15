@@ -78,4 +78,86 @@ for i := range pow {
 
 ## Iterators
 
-TODO
+Iterators are constructs that allow traversing over a sequence of elements.
+
+They are commonly used in many programming languages
+as a way to provide clean and efficient handling of collections of data.
+
+As of Go 1.23, the `iter` package provides basic ops related to seq iteration.
+
+An iterator is a function that goes through elems of seq one by one,
+sending them to a callback function, usually called `yield`.
+The func stops when it reaches the end of the sequence
+or when `yield` signals to stop early by returning `false`.
+
+`iter` provides `Seq` and `Seq2`,
+which are shortcuts for iterators that pass either one or two values
+from each sequence element to `yield`.
+```go
+type (
+    Seq[V any]     func(yield func(V) bool)
+    Seq2[K, V any] func(yield func(K, V) bool)
+)
+```
+`Seq2` represents a seq of paired values,
+typically used for key-value or index-value pairs.
+
+A `yield` func returns `true` if the iterator should continue to the next elem.
+It returns `false` if it should stop.
+
+Iterator functions are usually used within a `range` loop, such as
+```go
+func PrintAll[V any](seq iter.Seq[V]) {
+    for v := range seq {
+        fmt.Println(v)
+    }
+}
+```
+
+Verbosely, without `Seq2`, here's an example of a reverse iterator:
+```go
+package main
+
+import "fmt"
+
+func Backwards(s []string) func(func(int, string) bool) {
+    return func(yield func(int, string) bool) {
+        for i := len(s) - 1; i >= 0; i-- {
+            if !yield(i, s[i]) {
+                return 
+            }
+        }
+    }
+}
+
+func main() {
+    s := []string{"hello", "world"}
+    for i, x := range Backwards(s) {
+        fmt.Println(i, x)
+    }
+}
+```
+The iterator `Backwards` is invoked, returning a closure.
+`range` invokes this closure, passing an auto-generated `yield` func to it.
+The compiler generates this yield function based on the for-loop.
+
+`yield` takes the current values of the iteration, `i`, `xs[i]`,
+and performs the loop body, `fmt.Println(i, x)`.
+If the body executed successfully, it returns `true` to continue iteration.
+If `break` is encountered in the loop, `yield` returns `false`,
+which signals the closure to return early.
+
+Essentially:
+```go
+for i, x := range Backwards(s) {
+    fmt.Println(i, x)
+}
+```
+gets translated by the compiler to something like:
+```go
+Backwards(s)(func(i int, x string) bool {
+    fmt.Println(i, x)
+    return true // if `break`, then it would be translated  as `false`.
+})
+```
+
