@@ -382,6 +382,7 @@ Auto-completion:
 
 `^n`: Open/close the file explorer sidebar
 `k` and `j` to navigate up/down through the files/directories
+`a` create ("append") a new file.
 `<enter>`: Edit the selected file or expand/close the selected directory
 `e`: Rename the selected file or directory
 Remember `^l` and `^h` to move between the sidebar buffer and the edit buffer
