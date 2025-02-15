@@ -1,3 +1,5 @@
+# Neovim
+
 ---
 id: vim
 aliases: []
@@ -155,7 +157,16 @@ Visual mode:
 `<<`: Deindent by `shiftwidth`
 `==`: Re-indent (TODO: What does this mean?)
 
-`:set shiftwidth=2`: Change width for `<<`,  `>>`, and `==`
+`:set shiftwidth=2`: Set ident size (for `<<`,  `>>`, and `==`) to 2 cols
+`:set tabstop=2`: Set tab chars in file to appear as 2 cols wide.
+`:set expandtab`: tab key only use space chars, never tab chars.
+`:retab`: Convert existing tabs to spaces
+
+Can use combination on above (shorthand) to convert tabs to two spaces:
+```
+:set sw=2 ts=2 et
+:retab
+```
 
 #### Copy-paste
 
