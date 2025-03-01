@@ -368,16 +368,6 @@ q
 `<Leader>/`: Comment current or selected line(s)
 `<Leader>fm`: Format the current file using an integrated formatter
 
-###### nvim-cmp
-
-Auto-completion:
-
-`<tab>` or `^n`: Navigate to the next item in an insert auto-complete list
-`<shift + tab>` or `^p` Navigate to the previous item in an insert auto-complete ist
-`<enter>`: Accept the auto-complete list selection
-`^e` to close the list without accepting and continue inserting.
-`^c` or `<esc>` to close the list and return to normal mode.
-
 ##### nvim-tree
 
 `^n`: Open/close the file explorer sidebar
@@ -401,6 +391,16 @@ Tabs can be closed with the standard `:q` command.
 `:tabnew` - Open a new tab
 `:tabedit` - Open the file in a new tab
 `:tcd <path>` - Change directory?
+
+#### nvim-cmp
+
+Auto-completion:
+
+`<tab>` or `^n`: Navigate to the next item in an insert auto-complete list
+`<shift + tab>` or `^p` Navigate to the previous item in an insert auto-complete ist
+`<enter>`: Accept the auto-complete list selection
+`^e` to close the list without accepting and continue inserting.
+`^c` or `<esc>` to close the list and return to normal mode.
 
 #### Telescope:
 
@@ -429,4 +429,22 @@ For the following examples, `*` will denote the cursor position:
     'change quot*es'            cs'"            "change quotes"
     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
     delete(functi*on calls)     dsf             function calls
+
+#### tree-sitter
+
+Identifies syntax groups for highlighting and other LSP features.
+
+We can use `:Inspect` to learn about the syntax of a token under the cursor.
+The bottom-most line "x links to y" indicates tree-sitter has identified
+a token as "y".
+
+We can change syntax highlighting for syntax groups:
+```lua
+vim.api.nvim_set_hl(0, "@constructor.python", { fg = "#ff0000" })
+```
+
+In NvChad we can customize this in a couple ways:
+- In a custom theme under `hl_polish`
+- In the chadrc.lua under `base46.hl_override` and `.hl_add`.
+
 
