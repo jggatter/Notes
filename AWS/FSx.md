@@ -1,3 +1,5 @@
+# AWS FSx
+#aws #fsx #lustre #s3  #ec2 #eni
 ## FSx for Windows
 
 Windows native file system accessed over SMB (Server Message Block). Used for Windows native environments within AWS.

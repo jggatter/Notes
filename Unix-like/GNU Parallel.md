@@ -1,3 +1,4 @@
+#bash #unixlike #concurrency
 ## What is `parallel`?
 
 GNU `parallel` is a shell tool for executing jobs in parallel using one or more computers.
@@ -97,7 +98,7 @@ In this example, `./parallel_python.py 1 2 3` can execute the Python script in p
 
 ### Input sources
 
-Paralell reads values from input sources. One input source is the command line. The values are specified after the `:::` operator.
+Parallel reads values from input sources. One input source is the command line. The values are specified after the `:::` operator.
 
 ```bash
 # Parallelize `echo` from different input sources `1`, `2`, ... and `5`

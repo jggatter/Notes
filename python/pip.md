@@ -1,4 +1,4 @@
-#pip #python 
+#python #pip
 
 ## Install and upgrade pip
 

@@ -1,3 +1,6 @@
+# AWS DataSync
+#aws #datasync #s3 #fsx #efs #nfs #smb
+
 Might not be an exam question on this.
 
 Data transfer service to and from AWS. Manages the process from end to end.

@@ -1,4 +1,5 @@
-## Accounts
+#aws #accounts #mfa #budget
+## AWS Accounts
 
 **An account is a container for identities (users) and resources**
 Each has a name, unique email, and credit card.

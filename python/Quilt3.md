@@ -1,3 +1,4 @@
+#aws #quilt #python #packages #s3
 ## Delete packages
 [Source](https://docs.quiltdata.com/more/faq#how-do-i-delete-a-data-package-and-all-of-the-objects-in-the-data-package)
 

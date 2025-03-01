@@ -1,3 +1,6 @@
+# AWS IAM
+#aws #iam #roles #users #policies #accounts 
+
 IAM users vs. roles vs. policies
 
 An IAM user is an identity with long-term credentials that is used to interact with AWS in an account.

@@ -4,9 +4,9 @@ aliases: []
 tags: []
 ---
 
-# SageMaker
+# AWS SageMaker
 
-#sagemaker #ml #aws
+#aws #sagemaker #python #ml
 
 CellPainting models for imaging datasets?
 Pretrained models and inhouse models?
@@ -22,7 +22,7 @@ customer support is A+
 UI is good
 Python for ML, R for processing/visualizations
 
-SageMaker can pull in ML models from HuggingFace or Bedrocks.
+SageMaker can pull in ML models from HuggingFace or Bedrock.
 
 CPU-only interactive notebooks with GPU batch jobs maybe best use case for AWS Batch or maybe SageMaker
 

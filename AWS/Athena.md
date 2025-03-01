@@ -1,4 +1,6 @@
-## 101
+# Amazon Athena
+#aws #athena #serverless #sql #querying #s3 #json #parquet #database #schema #tables
+## Athena 101
 
 Severless interactive querying service.
 Ad-hoc queries on S3 data
@@ -23,7 +25,7 @@ Great for querying AWS logs
 Can also query data from Glue Data Catalog & Web Server Logs
 With Athena Federated Query, you can query non-S3 data sources. It uses data source connectors (Pieces of code that can translate between non-S3 datasources and Athena) on AWS Lambda to perform federated queries.
 
-## Getting started
+##  Creating Athena Database (Getting started)
 
 Under Amazon Athena, visit Query Editor -> Settings -> Manage.
 Enter in the S3 bucket to use as well as the account number of the expected owner.

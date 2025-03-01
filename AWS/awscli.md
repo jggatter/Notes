@@ -1,4 +1,7 @@
-## Authenticating
+# The `aws` CLI
+#aws #cli #iam #sts #todo
+TODO: Organize this mess!
+## AWS CLI Configuration
 
 ```sh
 # Install using `pip install -U gimme-aws-creds`

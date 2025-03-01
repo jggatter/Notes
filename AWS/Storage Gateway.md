@@ -1,3 +1,6 @@
+# AWS Storage Gateway
+#aws #storagegateway #s3 #ebs #nfs #smb #nas #san
+
 Normally runs as a virtual machine (or less commonly as hardware appliance)
 A bridge between storage on premises and AWS.
 Presents storage using iSCSI (SAN/NAS protocol), NFS (Unix-like), and SMB (Windows).
@@ -9,7 +12,7 @@ Volume stored
 
 Architecture:
 Can be run as a virtual appliance on premises.
-On premises might have Network-Attached Service (NAS)and a Storage Area Network (SAN) or a Storage Gateway VM
+On premises might have Network-Attached Service (NAS) and a Storage Area Network (SAN) or a Storage Gateway VM
 Servers on premises have local disks but for primary storage may be able to attach to SAN or NAS using iSCSI protocol which presents raw block storage over the network as block devices to these servers. Services just see them as a storage device to create a file system on.
 Business may have little funds for little funds for backups/effective backup recovery so look to AWS as a solution.
 
