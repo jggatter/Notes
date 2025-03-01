@@ -1,12 +1,22 @@
 # tmux
+#tmux #dotfiles #shell #vim #fzf
 
 ## Plugins and Configuration
 
-The tmux.conf file is the configuration file for tmux. Mine is in ~/.config/tmux/tmux.conf. After cloning tpm, `tmux source ~/.config/tmux/tmux.conf` can be used to source the conf file.
+The tmux.conf file is the configuration file for tmux.
+Mine is in ~/.config/tmux/tmux.conf.
+`tmux source ~/.config/tmux/tmux.conf` can be used to source the conf file.
 
-tpm is the tmux plugin manager that installs and loads `tmux` plugins. It must be cloned from GitHub prior to usage. At the bottom of the ~/.config/tmux/tmux.conf the `run` line sets tpm to download packages to ~/.tmux/plugins/tpm. tpm itself gets installed to this directory. `set -g @plugins` lines specify plugins to be installed by tpm. Once tpm is cloned and the tmux conf is sourced, `<prefix>I` installs these plugins.
+tpm is the tmux plugin manager that installs and loads `tmux` plugins.
+At the bottom of the ~/.config/tmux/tmux.conf,
+the `run` line sets tpm to download packages to ~/.tmux/plugins/tpm.
+tpm itself gets installed to this directory.
+`set -g @plugins` lines specify plugins to be installed by tpm.
+`<prefix>I` installs these plugins.
 
-If tpm returns exit code 1 upon trying to install plugins, then it is a good idea to kill all sessions, restart tmux, and retry. Additionally, reinstalling tmux and tpm might help.
+If tpm returns exit code 1 upon trying to install plugins,
+then it is a good idea to kill all sessions, restart tmux, and retry.
+Additionally, reinstalling tmux might help.
 
 ## Sessions, windows, and panes
 
